@@ -1,0 +1,10 @@
+{
+  "cards": [
+    {
+      "id": 1,
+      "question": "Is this a poll?test",
+      "answers": "yes,no, maybe",
+      "cardId": "1"
+    }
+  ]
+}
