@@ -1,10 +1,21 @@
 {
   "cards": [
+  {
+    "type": "single",
+    "question": "single test",
+    "answers": [
     {
-      "id": 1,
-      "question": "Is this a poll?test",
-      "answers": "yes,no, maybe",
-      "cardId": "1"
-    }
-  ]
+      "answer": "test"
+    }],
+    "id": 1
+  },
+  {
+    "type": "rating",
+    "question": "rating",
+    "answers": [
+    {
+      "answer": "test"
+    }],
+    "id": 2
+  }]
 }

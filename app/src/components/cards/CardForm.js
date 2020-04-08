@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, FieldArray, reduxForm, formValueSelector } from 'redux-form';
 
 
 
@@ -15,7 +15,7 @@ class CardForm extends React.Component {
 		}
 	}
 
-	renderInput = ({ input, label, meta }) => {
+	renderQuestion = ({ input, label, meta }) => {
 		const className = `field ${meta.error && meta.touched ? 'error': ''}`;
 		return (
 			<div className={className}>
@@ -26,30 +26,86 @@ class CardForm extends React.Component {
 		)
 	}
 
-	renderRadio = (fields) => {
-		console.log(fields)
+	renderAnswer = ({ input, meta, index }) => {
+		const className = `field ui action button ${meta.error && meta.touched ? 'error': ''}`;
 		return (
-			<div>
-				<label>Type</label>
-				<label><input type="radio" value="single"/>Single</label>
-				<label><input type="radio" value="multiple"/>Multiple</label>
-				<label><input type="radio" value="rating"/>Rating</label>
+			<div className={className}>
+				<input {...input} autoComplete="off"></input>
+				<span>{this.renderError(meta)}</span>
 			</div>
 		)
 	}
 
+	renderAnswerFields = (fields, meta) => {
+
+		return fields.map((answer, index) =>
+			<div key={index}>
+				<Field
+					name={ `${answer}.answer` }
+					component={this.renderAnswer}
+					index={index}/>
+				<button className="ui button" onClick={() => fields.remove(index)}>Remove Answer</button>
+			</div>
+		)
+	}
+
+	renderAnswersArray = ({ fields, meta }) => {
+		return (
+			<div className="field">
+				<label>Answers</label>
+				{ this.renderAnswerFields(fields, meta) }
+				<button className="ui button green" onClick={() => fields.push({})}>
+					<i className="plus circle icon"></i>
+					Add Answer (Max 5)
+				</button>
+				<div>{meta.error}</div>
+			</div>
+
+		)
+	}
+
+	onRatingSelect = (input) => {
+		console.log(input)
+		if (input.value === "rating") {
+			this.setState({
+				rating: true
+			})
+		} else {
+			this.setState({
+				rating: false
+			})
+		}
+	}
+
+	renderRadioField = ({ input, label }) => {
+
+		return (
+			<div className="ui radio checkbox">
+				<input {...input} type="radio" onClick={() => this.onRatingSelect(input)}></input>
+				<label>{label}</label>
+			</div>
+		)
+	}
+
+
 	onSubmission = formValues => {
-		this.props.onSubmit(formValues) // passed props in 
+		console.log(formValues)
+		// this.props.onSubmit(formValues) // passed props in
 	}
 
 	render() {
 		return (
 			<form className = "ui form error" onSubmit={this.props.handleSubmit(this.onSubmission)}>
-				<Field name="question" component={this.renderInput} label="Question" />
-				<Field name="answers" component={this.renderInput} label="Answer Options"/>
-        <div>
-
-        </div>
+				<div className="field">
+					<label>Type</label>
+					<div className="inline fields">
+						<Field name="type" component={this.renderRadioField} type="radio" label="Single" value="single"/>
+						<Field name="type" component={this.renderRadioField} type="radio" label="MultiSelect" value="multi"/> 
+						<Field name="type" component={this.renderRadioField} type="radio" label="Rating" value="rating"/> 
+					</div>
+				</div>
+				<Field name="question" component={this.renderQuestion} label="Question" />
+     			<FieldArray name="answers" component={this.renderAnswersArray}/>
 
 				<button className="ui button primary">Submit</button>
 				<button className="ui button red" onClick={() => this.props.reset()}>Clear Fields</button>
@@ -67,8 +123,30 @@ const validate = values => {
 		errors.question = "Enter a question"
 	}
 
-	if (!values.answers) {
-		errors.answers = "Answer Options"
+	if (!values.types) {
+		errors.types = "Choose a type"
+	}
+
+
+	if (!values.answers || !values.answers.length) {
+		errors.answers = { _error: 'At least one answer must be entered' }
+	} else {
+		let answerArrayErrors = []
+		values.answers.forEach((answer, idx) => {
+			let answerErrors = {}
+			if (!answer.answer) {
+				// console.log(idx, answer, 'no answer')
+				answerErrors.answer = "Fill in or remove field.";
+			} else {
+				answerErrors.answer = "";
+			}
+			answerArrayErrors[idx] = answerErrors;
+
+		})
+
+		if (answerArrayErrors.length) {
+			errors.answers = answerArrayErrors;
+		}
 	}
 
 	return errors;

@@ -16,12 +16,16 @@ class App extends React.Component {
 		return (
 			<div className="ui container" style={{backgroundColor: this.props.backgroundColor}}>
 				<Router history={history}>
+					<div>
 					<Header className="ui divider"/>
-					<Route path="/" exact component={CardList} />
-					<Route path="/cards/create" exact component={CardCreate} />
-					<Route path="/cards/edit/:id" exact component={CardEdit} />
-					<Route path="/cards/delete/:id" exact component={CardDelete} />
-					<Route path="/cards/:id" exact component={CardShow} />
+					<Switch>
+						<Route path="/" exact component={CardList} />
+						<Route path="/cards/create" exact component={CardCreate} />
+						<Route path="/cards/edit/:id" exact component={CardEdit} />
+						<Route path="/cards/delete/:id" exact component={CardDelete} />
+						<Route path="/cards/:id" exact component={CardShow} />
+					</Switch>
+					</div>
 				</Router>		
 			</div>
 		)

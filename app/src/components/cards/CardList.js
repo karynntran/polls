@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import { fetchCards } from '../../actions';
 
 import CardListPreview from './CardListPreview';
@@ -17,8 +19,7 @@ class CardList extends React.Component {
 
 		return this.props.cards.map((card) => {
 			return (
-				<CardListPreview className="ui cards" card={ card } key = { card.id }
- />
+				<CardListPreview className="ui cards" card={ card } key = { card.id }/>
 			)
 		})
 	}
@@ -26,6 +27,9 @@ class CardList extends React.Component {
 	render() {
 		return (
 			<div>
+				<div>
+					<Link to="/cards/create">Create New Poll</Link>
+				</div>
 				{this.renderCards()}
 			</div>
 		)

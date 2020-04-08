@@ -2,15 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const CardListPreview = ({ card }) => {
-	let { question, answers, id } = card;
+	let { question, answers, type, id } = card;
+
+	const renderAnswers = () => {
+		return answers.map((answer, idx) => {
+			return <li key={idx}>{answer.answer}</li>
+		})
+	}
+
 	return (
 		<div className="ui card">
 			<Link to={`cards/${id}`}>
 				<div className="content">
-					<div className="header">{question}</div>
+					<h6>{`Type: ${type}`}</h6>
+					<h2 className="header">{question}</h2>
+					
 				</div>
 				<div className="content">
-					{answers}
+					{ renderAnswers()}
 				</div>
 			</Link>
 
