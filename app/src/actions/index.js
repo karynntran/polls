@@ -6,10 +6,14 @@ import {
 	DELETE_CARD,
 	GET_USERS,
 	LOG_IN,
-	LOG_OUT
+	LOG_OUT,
+	IS_LOGGEDIN
 } from './types';
 
 import { getUsers } from '../_helpers/userHelpers';
+
+// import localStorage from '../localStorage';
+
 
 import db from '../api/db';
 
@@ -31,9 +35,13 @@ export const fetchCard = cardId => async dispatch => {
 	})
 };
 
-export const createCard = formValues => async dispatch => {
-	const response = await db.post('/cards', { ...formValues
+export const createCard = (formValues, user) => async dispatch => {
+	const userId = user.userId;
+	const response = await db.post('/cards', { ...formValues,
+		userId
 	});
+
+	console.log(response.data)
 
 	dispatch({
 		type: CREATE_CARD,
@@ -65,11 +73,13 @@ export const logIn = ({ username, password }) => async dispatch => {
 	const users = await getUsers();
 
 	if (users[username] && users[username].password === password) {
+		localStorage.setItem('user', users[username])
 		dispatch({
 			type: LOG_IN,
 			payload: {
 				logState: true,
-				message: 'Login succeeded'
+				message: 'Login succeeded',
+				currentUser: users[username]
 			}
 		})
 	} else {
@@ -77,29 +87,18 @@ export const logIn = ({ username, password }) => async dispatch => {
 			type: LOG_IN,
 			payload: {
 				logState: false,
-				message: 'Login failed'
+				message: 'Login failed',
+				currentUser: null
 			}
 		})
 	}
 
-
-
-
-	// const userObj = users.then((data) => Object.values(data));
-	// console.log(userObj)
-	// users.filter((user) => {
-	// 	if (user.username === username && user.password === password) {
-	// 		user.password ===
-	// 	} 
-	// })
-
-
-
-
-
 }
 
 export const logOut = () => {
+	localStorage.setItem('user', null)
+
+
 	return {
 		type: LOG_OUT,
 		payload: {
@@ -108,4 +107,29 @@ export const logOut = () => {
 		}
 
 	}
+}
+
+export const isLoggedIn = () => {
+	const isLoggedIn = localStorage.getItem('user')
+	console.log(isLoggedIn)
+	if (isLoggedIn) {
+		return {
+			type: IS_LOGGEDIN,
+			payload: {
+				logState: true,
+				currentUser: isLoggedIn
+			}
+
+		}
+	} else {
+		return {
+			type: IS_LOGGEDIN,
+			payload: {
+				logState: false,
+				currentUser: null
+			}
+
+		}
+	}
+
 }

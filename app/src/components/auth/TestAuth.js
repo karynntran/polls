@@ -2,7 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, FieldArray, reduxForm } from 'redux-form';
 
-import { logIn, logOut } from '../../actions';
+// import localStorage from '../../localStorage';
+
+
+import { logIn, logOut, isLoggedIn } from '../../actions';
+
 
 //create a form with login and logout
 //create a button
@@ -11,17 +15,17 @@ import { logIn, logOut } from '../../actions';
 
 class TestAuthForm extends React.Component {
 	componentDidMount() {
-		// this.props.getUsers();
+		this.props.isLoggedIn();
+
 	}
 
-
 	handleLogOut = () => {
+		localStorage.setItem('user', null)
 		this.props.logOut();
 		this.props.reset();
 	}
 
 	onSubmit = formValues => {
-		console.log(formValues)
 		this.props.logIn(formValues);
 	}
 
@@ -51,34 +55,24 @@ class TestAuthForm extends React.Component {
 	}
 
 	render() {
-		console.log('auth', this.props)
+		console.log(this.props)
 		return (
 			<div>{this.renderUserActions(this.props.logStatus)}</div>
 		)
 	}
 }
 
-// const mapStateToProps = (state) => {
-// 	return {
-// 		users: Object.values(state.users),
-// 		logStatus: state.auth.logState
-// 	}
-// }
-
-
-// export default connect(mapStateToProps, { getUsers, logIn, logOut })(TestAuth);
-
-
-// const selector = formValueSelector('testAuthForm')
 
 
 TestAuthForm = connect(
 	state => ({
 		logStatus: state.auth.logState,
-		message: state.auth.message
+		message: state.auth.message,
+		currentUser: state.auth.currentUser
 	}), {
 		logIn,
-		logOut
+		logOut,
+		isLoggedIn
 	}
 )(TestAuthForm)
 

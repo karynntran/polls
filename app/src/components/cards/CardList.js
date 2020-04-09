@@ -13,13 +13,13 @@ class CardList extends React.Component {
 	}
 
 	renderCards = () => {
-		if (!this.props.cards) {
-			return <div>Loading...</div>
+		if (!this.props.cards.length) {
+			return <div>Add some polls!</div>
 		}
 
 		return this.props.cards.map((card) => {
 			return (
-				<CardListPreview className="ui cards" card={ card } key = { card.id }/>
+				<CardListPreview className="ui cards" card={ card } key = { card.id } />
 			)
 		})
 	}

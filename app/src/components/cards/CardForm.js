@@ -51,8 +51,6 @@ class CardForm extends React.Component {
 	}
 
 	renderAnswersArray = ({ fields, meta, typeSelection }) => {
-		console.log(fields, meta)
-
 		if (typeSelection === 'rating') {
 			fields.removeAll();
 			return <div>Rating</div>
@@ -82,13 +80,12 @@ class CardForm extends React.Component {
 	}
 
 
-	onSubmission = formValues => {
+	onSubmission = (formValues) => {
 		this.props.onSubmit(formValues); // passed props in
 		history.push('/')
 	}
 
 	render() {
-		console.log(this.props)
 		return (
 			<form className = "ui form error" onSubmit={this.props.handleSubmit(this.onSubmission)}>
 				<div className="field">
