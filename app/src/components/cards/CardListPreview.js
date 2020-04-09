@@ -5,9 +5,14 @@ const CardListPreview = ({ card }) => {
 	let { question, answers, type, id } = card;
 
 	const renderAnswers = () => {
-		return answers.map((answer, idx) => {
-			return <li key={idx}>{answer.answer}</li>
-		})
+		if (answers.length) {
+			return answers.map((answer, idx) => {
+				return <li key={idx}>{answer.answer}</li>
+			})
+
+		} else {
+			return (<div>Rating</div>)
+		}
 	}
 
 	return (

@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Field, FieldArray, reduxForm, formValueSelector } from 'redux-form';
+import history from '../../history';
+
 
 
 
 class CardForm extends React.Component {
-
 	renderError = ({ error, touched }) => {
 		if (touched && error) {
 			return (
@@ -37,7 +39,6 @@ class CardForm extends React.Component {
 	}
 
 	renderAnswerFields = (fields, meta) => {
-
 		return fields.map((answer, index) =>
 			<div key={index}>
 				<Field
@@ -49,7 +50,13 @@ class CardForm extends React.Component {
 		)
 	}
 
-	renderAnswersArray = ({ fields, meta }) => {
+	renderAnswersArray = ({ fields, meta, typeSelection }) => {
+		console.log(fields, meta)
+
+		if (typeSelection === 'rating') {
+			fields.removeAll();
+			return <div>Rating</div>
+		}
 		return (
 			<div className="field">
 				<label>Answers</label>
@@ -62,26 +69,13 @@ class CardForm extends React.Component {
 			</div>
 
 		)
-	}
 
-	onRatingSelect = (input) => {
-		console.log(input)
-		if (input.value === "rating") {
-			this.setState({
-				rating: true
-			})
-		} else {
-			this.setState({
-				rating: false
-			})
-		}
 	}
 
 	renderRadioField = ({ input, label }) => {
-
 		return (
 			<div className="ui radio checkbox">
-				<input {...input} type="radio" onClick={() => this.onRatingSelect(input)}></input>
+				<input {...input} type="radio"></input>
 				<label>{label}</label>
 			</div>
 		)
@@ -89,11 +83,12 @@ class CardForm extends React.Component {
 
 
 	onSubmission = formValues => {
-		console.log(formValues)
-		// this.props.onSubmit(formValues) // passed props in
+		this.props.onSubmit(formValues); // passed props in
+		history.push('/')
 	}
 
 	render() {
+		console.log(this.props)
 		return (
 			<form className = "ui form error" onSubmit={this.props.handleSubmit(this.onSubmission)}>
 				<div className="field">
@@ -105,7 +100,7 @@ class CardForm extends React.Component {
 					</div>
 				</div>
 				<Field name="question" component={this.renderQuestion} label="Question" />
-     			<FieldArray name="answers" component={this.renderAnswersArray}/>
+     			<FieldArray typeSelection={this.props.formType} name="answers" component={this.renderAnswersArray}/>
 
 				<button className="ui button primary">Submit</button>
 				<button className="ui button red" onClick={() => this.props.reset()}>Clear Fields</button>
@@ -127,29 +122,41 @@ const validate = values => {
 		errors.types = "Choose a type"
 	}
 
+	if (values.type !== "rating") {
+		if (!values.answers || !values.answers.length) {
+			errors.answers = { _error: 'At least one answer must be entered' }
+		} else {
+			let answerArrayErrors = []
+			values.answers.forEach((answer, idx) => {
+				let answerErrors = {}
+				if (!answer.answer) {
+					// console.log(idx, answer, 'no answer')
+					answerErrors.answer = "Fill in or remove field.";
+				} else {
+					answerErrors.answer = "";
+				}
+				answerArrayErrors[idx] = answerErrors;
 
-	if (!values.answers || !values.answers.length) {
-		errors.answers = { _error: 'At least one answer must be entered' }
-	} else {
-		let answerArrayErrors = []
-		values.answers.forEach((answer, idx) => {
-			let answerErrors = {}
-			if (!answer.answer) {
-				// console.log(idx, answer, 'no answer')
-				answerErrors.answer = "Fill in or remove field.";
-			} else {
-				answerErrors.answer = "";
+			})
+
+			if (answerArrayErrors.length) {
+				errors.answers = answerArrayErrors;
 			}
-			answerArrayErrors[idx] = answerErrors;
-
-		})
-
-		if (answerArrayErrors.length) {
-			errors.answers = answerArrayErrors;
 		}
 	}
 
+
 	return errors;
 }
+
+const selector = formValueSelector('cardForm')
+
+
+CardForm = connect(
+	state => ({
+		formType: selector(state, 'type')
+	})
+)(CardForm)
+
 
 export default reduxForm({ form: 'cardForm', validate })(CardForm)
