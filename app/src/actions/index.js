@@ -3,13 +3,18 @@ import {
 	FETCH_CARDS,
 	CREATE_CARD,
 	EDIT_CARD,
-	DELETE_CARD
+	DELETE_CARD,
+	GET_USERS,
+	LOG_IN,
+	LOG_OUT
 } from './types';
-import cards from '../api/cards';
 
+import { getUsers } from '../_helpers/userHelpers';
+
+import db from '../api/db';
 
 export const fetchCards = () => async dispatch => {
-	const response = await cards.get('/cards');
+	const response = await db.get('/cards');
 
 	dispatch({
 		type: FETCH_CARDS,
@@ -18,7 +23,7 @@ export const fetchCards = () => async dispatch => {
 };
 
 export const fetchCard = cardId => async dispatch => {
-	const response = await cards.get(`/cards/${cardId}`);
+	const response = await db.get(`/cards/${cardId}`);
 
 	dispatch({
 		type: FETCH_CARD,
@@ -27,7 +32,7 @@ export const fetchCard = cardId => async dispatch => {
 };
 
 export const createCard = formValues => async dispatch => {
-	const response = await cards.post('/cards', { ...formValues
+	const response = await db.post('/cards', { ...formValues
 	});
 
 	dispatch({
@@ -37,7 +42,7 @@ export const createCard = formValues => async dispatch => {
 };
 
 export const editCard = (formValues, cardId) => async dispatch => {
-	const response = await cards.patch(`/cards/${cardId}`, { ...formValues,
+	const response = await db.patch(`/cards/${cardId}`, { ...formValues,
 		cardId
 	});
 
@@ -48,10 +53,59 @@ export const editCard = (formValues, cardId) => async dispatch => {
 };
 
 export const deleteCard = (cardId) => async dispatch => {
-	const response = await cards.delete(`/cards/${cardId}`);
+	const response = await db.delete(`/cards/${cardId}`);
 
 	dispatch({
 		type: DELETE_CARD,
 		payload: cardId
 	})
 };
+
+export const logIn = ({ username, password }) => async dispatch => {
+	const users = await getUsers();
+
+	if (users[username] && users[username].password === password) {
+		dispatch({
+			type: LOG_IN,
+			payload: {
+				logState: true,
+				message: 'Login succeeded'
+			}
+		})
+	} else {
+		dispatch({
+			type: LOG_IN,
+			payload: {
+				logState: false,
+				message: 'Login failed'
+			}
+		})
+	}
+
+
+
+
+	// const userObj = users.then((data) => Object.values(data));
+	// console.log(userObj)
+	// users.filter((user) => {
+	// 	if (user.username === username && user.password === password) {
+	// 		user.password ===
+	// 	} 
+	// })
+
+
+
+
+
+}
+
+export const logOut = () => {
+	return {
+		type: LOG_OUT,
+		payload: {
+			logState: false,
+			message: 'You have been logged out'
+		}
+
+	}
+}

@@ -1,40 +1,47 @@
 {
+  "testUsers": [
+  {
+    "username": "user123",
+    "password": "password123",
+    "userId": 123
+  },
+  {
+    "username": "user456",
+    "password": "password456",
+    "userId": 456
+  }],
   "cards": [
+  {
+    "type": "rating",
+    "question": "Rating",
+    "answers": [],
+    "id": 1
+  },
+  {
+    "type": "single",
+    "question": "Single",
+    "answers": [
     {
-      "type": "rating",
-      "question": "Rating",
-      "answers": [],
-      "id": 1
-    },
+      "answer": "Single"
+    }],
+    "id": 2
+  },
+  {
+    "type": "multi",
+    "question": "Multi",
+    "answers": [
     {
-      "type": "single",
-      "question": "Single",
-      "answers": [
-        {
-          "answer": "Single"
-        }
-      ],
-      "id": 2
-    },
+      "answer": "Multi"
+    }],
+    "id": 3
+  },
+  {
+    "type": "single",
+    "question": "single2",
+    "answers": [
     {
-      "type": "multi",
-      "question": "Multi",
-      "answers": [
-        {
-          "answer": "Multi"
-        }
-      ],
-      "id": 3
-    },
-    {
-      "type": "single",
-      "question": "single2",
-      "answers": [
-        {
-          "answer": "single2"
-        }
-      ],
-      "id": 4
-    }
-  ]
+      "answer": "single2"
+    }],
+    "id": 4
+  }]
 }

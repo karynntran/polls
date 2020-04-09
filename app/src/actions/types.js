@@ -7,3 +7,9 @@ export const CREATE_CARD = 'CREATE_CARD';
 export const EDIT_CARD = 'EDIT_CARD';
 
 export const DELETE_CARD = 'DELETE_CARD';
+
+export const GET_USERS = 'GET_USERS';
+
+export const LOG_IN = 'LOG_IN';
+
+export const LOG_OUT = 'LOG_OUT';
