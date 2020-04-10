@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import '../style/styles.scss';
 
 
 class CardListPreview extends React.Component {
@@ -19,15 +20,19 @@ class CardListPreview extends React.Component {
 		if (this.props.currentUser) {
 			if (userId === this.props.currentUser.userId) {
 				return (
-					<div className="content">
-							<button><Link to={`/cards/edit/${id}`}>Edit Poll</Link></button>
-							<button><Link to={`/cards/delete/${id}`}>Delete Poll</Link></button>
+					<div className="extra content">
+						<div className="ui two buttons">
+							<button className="ui button green"><Link to={`/cards/edit/${id}`}>Edit Poll</Link></button>
+							<button className="ui button red"><Link to={`/cards/delete/${id}`}>Delete Poll</Link></button>
+						</div>
 					</div>
 				)
 			} else {
 				return (
-					<div>
-						<button>Answer this poll!</button>
+					<div className="extra content">
+						<div className="ui two buttons">
+							<button className="ui button green"><Link to={`/cards/show/${id}`}>Answer this Poll!</Link></button>
+						</div>
 					</div>
 				)
 			}

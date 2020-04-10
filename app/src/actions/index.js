@@ -4,7 +4,6 @@ import {
 	CREATE_CARD,
 	EDIT_CARD,
 	DELETE_CARD,
-	GET_USERS,
 	LOG_IN,
 	LOG_OUT,
 	IS_LOGGEDIN
@@ -73,7 +72,7 @@ export const logIn = ({ username, password }) => async dispatch => {
 	const users = await getUsers();
 
 	if (users[username] && users[username].password === password) {
-		localStorage.setItem('user', users[username])
+		localStorage.setItem('user', JSON.stringify(users[username]))
 		dispatch({
 			type: LOG_IN,
 			payload: {
@@ -103,21 +102,21 @@ export const logOut = () => {
 		type: LOG_OUT,
 		payload: {
 			logState: false,
-			message: 'You have been logged out'
+			message: 'You have been logged out',
+			currentUser: null
 		}
 
 	}
 }
 
 export const isLoggedIn = () => {
-	const isLoggedIn = localStorage.getItem('user')
-	console.log(isLoggedIn)
-	if (isLoggedIn) {
+	const userCheck = JSON.parse(localStorage.getItem('user'));
+	if (userCheck !== null) {
 		return {
 			type: IS_LOGGEDIN,
 			payload: {
 				logState: true,
-				currentUser: isLoggedIn
+				currentUser: userCheck
 			}
 
 		}

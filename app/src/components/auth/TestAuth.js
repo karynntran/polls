@@ -16,7 +16,6 @@ import { logIn, logOut, isLoggedIn } from '../../actions';
 class TestAuthForm extends React.Component {
 	componentDidMount() {
 		this.props.isLoggedIn();
-
 	}
 
 	handleLogOut = () => {
@@ -40,14 +39,24 @@ class TestAuthForm extends React.Component {
 
 	renderUserActions = (status) => {
 		if (status) {
-			return <button onClick={() => this.handleLogOut()}>Log Out</button>
+			return (
+				<div>
+					<div>
+						<img class="ui avatar image" src={this.props.currentUser.avatar}/>
+						<span>Welcome {this.props.currentUser.username}</span>
+						<button onClick={() => this.handleLogOut()}>Log Out</button>
+					</div>
+				</div>
+			)
 		} else {
 			return (
 				<form className= "ui form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-					<Field name="username" component={this.renderInput} label="Username:" />
-					<Field name="password" component={this.renderInput} label="Password:" />
+					<div className="three fields">
+						<Field name="username" component={this.renderInput} label="Username:" />
+						<Field name="password" type="password" component={this.renderInput} label="Password:" />
+						<button className=" field ui button primary">Submit</button>
+					</div>
 					<div>{this.props.message}</div>
-					<button className="ui button primary">Submit</button>
 				</form>
 			)
 
@@ -55,7 +64,6 @@ class TestAuthForm extends React.Component {
 	}
 
 	render() {
-		console.log(this.props)
 		return (
 			<div>{this.renderUserActions(this.props.logStatus)}</div>
 		)

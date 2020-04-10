@@ -3,6 +3,8 @@ import { Router, Route, Switch } from 'react-router-dom';
 
 import history from '../history';
 
+import './style/styles.scss';
+
 import Header from './Header';
 import CardList from './cards/CardList';
 import CardCreate from './cards/CardCreate';

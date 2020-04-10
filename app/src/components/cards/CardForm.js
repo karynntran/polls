@@ -60,7 +60,7 @@ class CardForm extends React.Component {
 				<label>Answers</label>
 				{ this.renderAnswerFields(fields, meta) }
 				<button className="ui button green" onClick={() => fields.push({})}>
-					<i className="plus circle icon"></i>
+					<i class="plus square outline icon"></i>
 					Add Answer (Max 5)
 				</button>
 				<div>{meta.error}</div>

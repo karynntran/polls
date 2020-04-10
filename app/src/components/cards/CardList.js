@@ -12,33 +12,82 @@ class CardList extends React.Component {
 		this.props.fetchCards();
 	}
 
-	renderCards = () => {
+	renderUserCards = () => {
 		if (!this.props.cards.length) {
 			return <div>Add some polls!</div>
 		}
 
-		return this.props.cards.map((card) => {
+		if (this.props.logState) {
+			let { userId } = this.props.currentUser;
+			const userCards = this.props.cards.filter((card) => card.userId === userId)
+			return userCards.map((card) => {
+				return (
+					<CardListPreview className="ui cards" card={ card } key = { card.id } />
+				)
+			})
+		}
+	}
+
+	renderOtherCards = () => {
+		if (!this.props.cards.length) {
+			return <div>Add some polls!</div>
+		}
+
+		const otherCards = this.props.logState ? this.props.cards.filter((card) => card.userId !== this.props.currentUser.userId) : this.props.cards
+
+		return otherCards.map((card) => {
 			return (
 				<CardListPreview className="ui cards" card={ card } key = { card.id } />
 			)
 		})
+
 	}
 
+
 	render() {
+		if (this.props.logState) {
+			return (
+				<div>
+					<div>
+						<Link to="/cards/create">
+							<i class="plus square outline icon"></i>
+							Create New Poll
+						</Link>
+					</div>	
+					<div className="ui segment">
+						<h2>Your Polls</h2>
+						<div className="ui three stackable cards">
+							{this.renderUserCards()}
+						</div>
+					</div>
+					<div className="ui segment">
+						<h2>Take These Polls</h2>
+						<div className="ui three stackable cards">
+							{this.renderOtherCards()}
+						</div>
+					</div>
+				</div>
+			)
+		}
+
 		return (
 			<div>
-				<div>
-					<Link to="/cards/create">Create New Poll</Link>
-				</div>
-				{this.renderCards()}
+				<h2>Log In With the Following Test Credentials</h2>
+				<ul>
+					<li>Username: user123, Password: password123</li>
+					<li>Username: user456, Password: password456</li>
+				</ul>
 			</div>
 		)
+
 	}
 }
 
 const mapStateToProps = (state) => {
 	return {
-		cards: Object.values(state.cards) //using Object.values creates an array over an object property values
+		cards: Object.values(state.cards), //using Object.values creates an array over an object property values
+		currentUser: state.auth.currentUser,
+		logState: state.auth.logState
 	}
 }
 
