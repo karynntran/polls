@@ -11,6 +11,7 @@ class CardEdit extends React.Component {
 	}
 
 	onSubmit = formValues => {
+		console.log('formValues', formValues, this.props.match.params.id)
 
 		this.props.editCard(formValues, this.props.match.params.id);
 	}
@@ -22,7 +23,7 @@ class CardEdit extends React.Component {
 		return (
 			<div>
 				<h3>Edit A Poll</h3>
-				<CardForm onSubmit={this.onSubmit} initialValues={_.pick(this.props.card, 'question', 'answers')} />
+				<CardForm onSubmit={this.onSubmit} initialValues={_.pick(this.props.card, 'question', 'answers', 'type')} />
 			</div>
 		)
 	}

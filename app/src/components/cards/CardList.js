@@ -12,6 +12,10 @@ class CardList extends React.Component {
 		this.props.fetchCards();
 	}
 
+	componentDidUpdate() {
+		this.props.fetchCards();
+	}
+
 	renderUserCards = () => {
 		if (!this.props.cards.length) {
 			return <div>Add some polls!</div>
@@ -22,7 +26,7 @@ class CardList extends React.Component {
 			const userCards = this.props.cards.filter((card) => card.userId === userId)
 			return userCards.map((card) => {
 				return (
-					<CardListPreview className="ui cards" card={ card } key = { card.id } />
+					<CardListPreview className="ui cards" card={ card } key = { card._id } />
 				)
 			})
 		}
@@ -37,7 +41,7 @@ class CardList extends React.Component {
 
 		return otherCards.map((card) => {
 			return (
-				<CardListPreview className="ui cards" card={ card } key = { card.id } />
+				<CardListPreview className="ui cards" card={ card } key = { card._id } />
 			)
 		})
 
@@ -50,7 +54,7 @@ class CardList extends React.Component {
 				<div>
 					<div>
 						<Link to="/cards/create">
-							<i class="plus square outline icon"></i>
+							<i className="plus square outline icon"></i>
 							Create New Poll
 						</Link>
 					</div>	
@@ -74,8 +78,8 @@ class CardList extends React.Component {
 			<div>
 				<h2>Log In With the Following Test Credentials</h2>
 				<ul>
-					<li>Username: user123, Password: password123</li>
-					<li>Username: user456, Password: password456</li>
+					<li key="user123">Username: user123, Password: password123</li>
+					<li key="user456">Username: user456, Password: password456</li>
 				</ul>
 			</div>
 		)

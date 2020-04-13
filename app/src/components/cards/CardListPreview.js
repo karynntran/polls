@@ -41,11 +41,10 @@ class CardListPreview extends React.Component {
 	}
 
 	render() {
-		let { question, answers, type, id, userId } = this.props.card;
-
+		let { question, answers, type, _id, userId } = this.props.card;
 		return (
 			<div className="ui card">
-				<Link to={`cards/${id}`}>
+				<Link to={`cards/${_id}`}>
 					<div className="content">
 						<h6>{`Type: ${type}`}</h6>
 						<h2 className="header">{question}</h2>
@@ -55,7 +54,7 @@ class CardListPreview extends React.Component {
 						{ this.renderAnswers(answers)}
 					</div>
 				</Link>
-				{this.renderOptions(id, userId)}
+				{this.renderOptions(_id, userId)}
 			</div>
 		)
 	}

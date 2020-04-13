@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Field, FieldArray, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 
 // import localStorage from '../../localStorage';
 
@@ -42,7 +42,7 @@ class TestAuthForm extends React.Component {
 			return (
 				<div>
 					<div>
-						<img class="ui avatar image" src={this.props.currentUser.avatar}/>
+						<img alt="avatar" className="ui avatar image" src={this.props.currentUser.avatar}/>
 						<span>Welcome {this.props.currentUser.username}</span>
 						<button onClick={() => this.handleLogOut()}>Log Out</button>
 					</div>

@@ -1,6 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Field, FieldArray, reduxForm, formValueSelector } from 'redux-form';
+import {
+	Field,
+	FieldArray,
+	reduxForm,
+	formValueSelector
+} from 'redux-form';
 import history from '../../history';
 
 
@@ -60,7 +65,7 @@ class CardForm extends React.Component {
 				<label>Answers</label>
 				{ this.renderAnswerFields(fields, meta) }
 				<button className="ui button green" onClick={() => fields.push({})}>
-					<i class="plus square outline icon"></i>
+					<i className="plus square outline icon"></i>
 					Add Answer (Max 5)
 				</button>
 				<div>{meta.error}</div>

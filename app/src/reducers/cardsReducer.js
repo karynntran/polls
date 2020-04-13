@@ -11,13 +11,13 @@ import {
 export default (state = {}, action) => {
 	switch (action.type) {
 		case FETCH_CARD:
-			return { ...state, [action.payload.id]: action.payload }
+			return { ...state, [action.payload._id]: action.payload }
 		case FETCH_CARDS:
-			return { ...state, ..._.mapKeys(action.payload, 'id') } //mapKeys from lodash creates a new object with the same values as the given object and a provided "property"
+			return { ...state, ..._.mapKeys(action.payload, '_id') } //mapKeys from lodash creates a new object with the same values as the given object and a provided "property"
 		case CREATE_CARD:
-			return { ...state, [action.payload.id]: action.payload }
+			return { ...state, ...action.payload }
 		case EDIT_CARD:
-			return { ...state, [action.payload.id]: action.payload }
+			return { ...state, ...action.payload }
 		case DELETE_CARD:
 			return _.omit(state, action.payload)
 		default:

@@ -1,56 +1,66 @@
 {
   "testUsers": [
-  {
-    "username": "user123",
-    "password": "password123",
-    "userId": 123,
-    "avatar": "http://placekitten.com/g/200/350"
-  },
-  {
-    "username": "user456",
-    "password": "password456",
-    "userId": 456,
-    "avatar": "http://placekitten.com/g/200/500"
-  }],
+    {
+      "username": "user123",
+      "password": "password123",
+      "userId": 123,
+      "avatar": "http://placekitten.com/g/200/350"
+    },
+    {
+      "username": "user456",
+      "password": "password456",
+      "userId": 456,
+      "avatar": "http://placekitten.com/g/200/500"
+    }
+  ],
   "cards": [
-  {
-    "type": "single",
-    "question": "single",
-    "answers": [
     {
-      "answer": "single"
-    }],
-    "userId": 123,
-    "id": 1
-  },
-  {
-    "type": "multi",
-    "question": "multi",
-    "answers": [
+      "type": "single",
+      "question": "single",
+      "answers": [
+        {
+          "answer": "single"
+        },
+        {
+          "answer": "single2"
+        }
+      ],
+      "userId": 123,
+      "id": 1,
+      "cardId": "1"
+    },
     {
-      "answer": "multi"
-    }],
-    "userId": 123,
-    "id": 2
-  },
-  {
-    "type": "single",
-    "question": "single-456",
-    "answers": [
+      "type": "multi",
+      "question": "multi",
+      "answers": [
+        {
+          "answer": "multi"
+        }
+      ],
+      "userId": 123,
+      "id": 2
+    },
     {
-      "answer": "single456"
-    }],
-    "userId": 456,
-    "id": 3
-  },
-  {
-    "type": "multi",
-    "question": "multi-456",
-    "answers": [
+      "type": "single",
+      "question": "single-456",
+      "answers": [
+        {
+          "answer": "single456"
+        }
+      ],
+      "userId": 456,
+      "id": 3
+    },
     {
-      "answer": "multi-456"
-    }],
-    "userId": 456,
-    "id": 4
-  }]
+      "type": "multi",
+      "question": "multi-456",
+      "answers": [
+        {
+          "answer": "multi-456"
+        }
+      ],
+      "userId": 456,
+      "id": 4
+    }
+  ]
 }

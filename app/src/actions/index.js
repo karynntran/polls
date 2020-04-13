@@ -11,26 +11,26 @@ import {
 
 import { getUsers } from '../_helpers/userHelpers';
 
-// import localStorage from '../localStorage';
-
-
 import db from '../api/db';
+
 
 export const fetchCards = () => async dispatch => {
 	const response = await db.get('/cards');
 
 	dispatch({
 		type: FETCH_CARDS,
-		payload: response.data
+		payload: response.data.data
+
 	})
 };
 
 export const fetchCard = cardId => async dispatch => {
 	const response = await db.get(`/cards/${cardId}`);
 
+	console.log('fethCard', response)
 	dispatch({
 		type: FETCH_CARD,
-		payload: response.data
+		payload: response.data.data
 	})
 };
 
@@ -44,7 +44,7 @@ export const createCard = (formValues, user) => async dispatch => {
 
 	dispatch({
 		type: CREATE_CARD,
-		payload: response.data
+		payload: response.data.data
 	})
 };
 
@@ -55,7 +55,7 @@ export const editCard = (formValues, cardId) => async dispatch => {
 
 	dispatch({
 		type: EDIT_CARD,
-		payload: response.data
+		payload: response.data.data
 	})
 };
 
@@ -70,6 +70,7 @@ export const deleteCard = (cardId) => async dispatch => {
 
 export const logIn = ({ username, password }) => async dispatch => {
 	const users = await getUsers();
+	console.log(users)
 
 	if (users[username] && users[username].password === password) {
 		localStorage.setItem('user', JSON.stringify(users[username]))
