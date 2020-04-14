@@ -27,7 +27,6 @@ export const fetchCards = () => async dispatch => {
 export const fetchCard = cardId => async dispatch => {
 	const response = await db.get(`/cards/${cardId}`);
 
-	console.log('fethCard', response)
 	dispatch({
 		type: FETCH_CARD,
 		payload: response.data.data
@@ -35,12 +34,11 @@ export const fetchCard = cardId => async dispatch => {
 };
 
 export const createCard = (formValues, user) => async dispatch => {
-	const userId = user.userId;
+	const userId = user;
 	const response = await db.post('/cards', { ...formValues,
 		userId
 	});
 
-	console.log(response.data)
 
 	dispatch({
 		type: CREATE_CARD,
@@ -69,17 +67,18 @@ export const deleteCard = (cardId) => async dispatch => {
 };
 
 export const logIn = ({ username, password }) => async dispatch => {
-	const users = await getUsers();
-	console.log(users)
+	// const users = await getUsers();
+	const response = await db.post(`/user/${username}/${password}`);
 
-	if (users[username] && users[username].password === password) {
-		localStorage.setItem('user', JSON.stringify(users[username]))
+	console.log('login', response)
+	if (response.data.success) {
+		localStorage.setItem('user', JSON.stringify(response.data.user))
 		dispatch({
 			type: LOG_IN,
 			payload: {
 				logState: true,
 				message: 'Login succeeded',
-				currentUser: users[username]
+				currentUser: response.data.user
 			}
 		})
 	} else {
@@ -92,6 +91,7 @@ export const logIn = ({ username, password }) => async dispatch => {
 			}
 		})
 	}
+
 
 }
 

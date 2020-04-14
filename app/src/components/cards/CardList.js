@@ -12,9 +12,9 @@ class CardList extends React.Component {
 		this.props.fetchCards();
 	}
 
-	componentDidUpdate() {
-		this.props.fetchCards();
-	}
+	// componentDidUpdate() {
+	// 	this.props.fetchCards();
+	// }
 
 	renderUserCards = () => {
 		if (!this.props.cards.length) {
@@ -22,8 +22,7 @@ class CardList extends React.Component {
 		}
 
 		if (this.props.logState) {
-			let { userId } = this.props.currentUser;
-			const userCards = this.props.cards.filter((card) => card.userId === userId)
+			const userCards = this.props.cards.filter((card) => card.userId === this.props.currentUser._id)
 			return userCards.map((card) => {
 				return (
 					<CardListPreview className="ui cards" card={ card } key = { card._id } />
@@ -37,7 +36,7 @@ class CardList extends React.Component {
 			return <div>Add some polls!</div>
 		}
 
-		const otherCards = this.props.logState ? this.props.cards.filter((card) => card.userId !== this.props.currentUser.userId) : this.props.cards
+		const otherCards = this.props.logState ? this.props.cards.filter((card) => card.userId !== this.props.currentUser._id) : this.props.cards
 
 		return otherCards.map((card) => {
 			return (
@@ -59,15 +58,16 @@ class CardList extends React.Component {
 						</Link>
 					</div>	
 					<div className="ui segment">
-						<h2>Your Polls</h2>
-						<div className="ui three stackable cards">
-							{this.renderUserCards()}
-						</div>
-					</div>
-					<div className="ui segment">
 						<h2>Take These Polls</h2>
 						<div className="ui three stackable cards">
 							{this.renderOtherCards()}
+						</div>
+					</div>
+
+					<div className="ui segment">
+						<h2>Your Polls</h2>
+						<div className="ui three stackable cards">
+							{this.renderUserCards()}
 						</div>
 					</div>
 				</div>

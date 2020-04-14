@@ -5,11 +5,10 @@ import CardForm from './CardForm';
 
 class CardCreate extends React.Component {
 	onSubmit = (formValues) => {
-		this.props.createCard(formValues, this.props.currentUser);
+		this.props.createCard(formValues, this.props.currentUser._id);
 	}
 
 	render() {
-		console.log(this.props)
 		return (
 			<div>
 				<h3>Create A Poll</h3>

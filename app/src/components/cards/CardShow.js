@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchCard } from '../../actions';
+import CardChartPie from './CardChartPie';
 
 class CardShow extends React.Component {
 	componentDidMount() {
@@ -14,12 +15,14 @@ class CardShow extends React.Component {
 	}
 
 	render() {
+		console.log(this.props.card)
 		if (!this.props.card) {
 			return <div>Loading</div>
 		}
 		return (
 			<div>
 				<div>
+					<CardChartPie />
 					<h2>{this.props.card.question}</h2>
 					<ul>
 						{this.renderAnswers()}

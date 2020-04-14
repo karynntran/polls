@@ -18,7 +18,7 @@ class CardListPreview extends React.Component {
 
 	renderOptions(id, userId) {
 		if (this.props.currentUser) {
-			if (userId === this.props.currentUser.userId) {
+			if (userId === this.props.currentUser._id) {
 				return (
 					<div className="extra content">
 						<div className="ui two buttons">
@@ -31,7 +31,7 @@ class CardListPreview extends React.Component {
 				return (
 					<div className="extra content">
 						<div className="ui two buttons">
-							<button className="ui button green"><Link to={`/cards/show/${id}`}>Answer this Poll!</Link></button>
+							<button className="ui button green"><Link to={`/cards/${id}`}>Answer this Poll!</Link></button>
 						</div>
 					</div>
 				)

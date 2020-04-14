@@ -28,11 +28,11 @@ class TestAuthForm extends React.Component {
 		this.props.logIn(formValues);
 	}
 
-	renderInput = ({ input, label, messageStatus }) => {
+	renderInput = ({ input, label, type, messageStatus }) => {
 		return (
 			<div className="field">
 				<label>{label}</label>
-				<input {...input } autoComplete="off" />
+				<input {...input } type={type} autoComplete="off" />
 			</div>
 		)
 	}
@@ -52,7 +52,7 @@ class TestAuthForm extends React.Component {
 			return (
 				<form className= "ui form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
 					<div className="three fields">
-						<Field name="username" component={this.renderInput} label="Username:" />
+						<Field name="username" type="text" component={this.renderInput} label="Username:" />
 						<Field name="password" type="password" component={this.renderInput} label="Password:" />
 						<button className=" field ui button primary">Submit</button>
 					</div>
