@@ -47,6 +47,7 @@ export const createCard = (formValues, user) => async dispatch => {
 };
 
 export const editCard = (formValues, cardId) => async dispatch => {
+	console.log(formValues)
 	const response = await db.patch(`/cards/${cardId}`, { ...formValues,
 		cardId
 	});

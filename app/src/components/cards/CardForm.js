@@ -12,6 +12,8 @@ import history from '../../history';
 
 
 class CardForm extends React.Component {
+	state = { checked: true }
+
 	renderError = ({ error, touched }) => {
 		if (touched && error) {
 			return (
@@ -75,10 +77,20 @@ class CardForm extends React.Component {
 
 	}
 
-	renderRadioField = ({ input, label }) => {
+	renderTypeField = ({ input, label }) => {
 		return (
-			<div className="ui radio checkbox">
+			<div className="ui radio">
 				<input {...input} type="radio"></input>
+				<label>{label}</label>
+			</div>
+		)
+	}
+
+
+	renderPublicField = ({ input, label }) => {
+		return (
+			<div className="ui checkbox">
+				<input {...input} type="checkbox" checked={this.props.checkedStatus}></input>
 				<label>{label}</label>
 			</div>
 		)
@@ -96,17 +108,18 @@ class CardForm extends React.Component {
 				<div className="field">
 					<label>Type</label>
 					<div className="inline fields">
-						<Field name="type" component={this.renderRadioField} type="radio" label="Single" value="single"/>
-						<Field name="type" component={this.renderRadioField} type="radio" label="MultiSelect" value="multi"/> 
-						<Field name="type" component={this.renderRadioField} type="radio" label="Rating" value="rating"/> 
+						<Field name="type" component={this.renderTypeField} type="radio" label="Single" value="single"/>
+						<Field name="type" component={this.renderTypeField} type="radio" label="MultiSelect" value="multi"/> 
+						<Field name="type" component={this.renderTypeField} type="radio" label="Rating" value="rating"/> 
 					</div>
 				</div>
 				<Field name="question" component={this.renderQuestion} label="Question" />
      			<FieldArray typeSelection={this.props.formType} name="answers" component={this.renderAnswersArray}/>
-
+				<Field name="permissions.public" component={this.renderPublicField} label="Public" />
+				<div>
 				<button className="ui button primary">Submit</button>
 				<button className="ui button red" onClick={() => this.props.reset()}>Clear Fields</button>
-
+				</div>
 			</form>
 		)
 	}
@@ -156,9 +169,10 @@ const selector = formValueSelector('cardForm')
 
 CardForm = connect(
 	state => ({
-		formType: selector(state, 'type')
+		formType: selector(state, 'type'),
+		checkedStatus: selector(state, 'permissions.public')
 	})
 )(CardForm)
 
 
-export default reduxForm({ form: 'cardForm', validate })(CardForm)
+export default reduxForm({ form: 'cardForm', enableReinitialize: true, validate })(CardForm)
