@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import history from '../history';
 
@@ -12,7 +13,12 @@ import CardEdit from './cards/CardEdit';
 import CardDelete from './cards/CardDelete';
 import CardShow from './cards/CardShow';
 
+import { isLoggedIn } from '../actions/authActions';
+
 class App extends React.Component {
+	componentDidMount() {
+		this.props.isLoggedIn();
+	}
 
 	render() {
 		return (
@@ -34,5 +40,10 @@ class App extends React.Component {
 	}
 }
 
+const mapStateToProps = (state) => {
+	return {
+		currentUser: state.auth.currentUser
+	}
+}
 
-export default App;
+export default connect(mapStateToProps, { isLoggedIn })(App);

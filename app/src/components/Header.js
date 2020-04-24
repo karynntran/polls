@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import TestAuth from './auth/TestAuth';
 
-const Header = () => {
+const Header = (props) => {
 	return (
 		<div className="ui secondary pointing menu">
 			<h1>
-				<Link to="/">Pulse</Link>
+				<Link to="/">Village</Link>
 			</h1>
 			<div className="right menu">
 				<TestAuth />

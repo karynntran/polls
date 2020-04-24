@@ -1,14 +1,16 @@
-import _ from 'lodash';
+// import {
+	// 	CURRENT_USER
+	// } from '../actions/types';
 
-import {
-	GET_USERS
-} from '../actions/types';
+	// const INITIAL_STATE = {
+	// 	currentUser: null
+	// }
 
-export default (state = {}, action) => {
-	switch (action.type) {
-		case GET_USERS:
-			return { ...state, ..._.mapKeys(action.payload, 'userId') }
-		default:
-			return state;
-	}
-}
+	// export default (state = INITIAL_STATE, action) => {
+	// 	switch (action.type) {
+	// 		case CURRENT_USER:
+	// 			return { ...state, ...action.payload }
+	// 		default:
+	// 			return state;
+	// 	}
+	// }

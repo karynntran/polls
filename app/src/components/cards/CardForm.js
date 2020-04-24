@@ -9,8 +9,6 @@ import {
 import history from '../../history';
 
 
-
-
 class CardForm extends React.Component {
 	state = { checked: true }
 
@@ -80,7 +78,7 @@ class CardForm extends React.Component {
 	renderTypeField = ({ input, label }) => {
 		return (
 			<div className="ui radio">
-				<input {...input} type="radio"></input>
+				<input {...input} type="radio" name="type"></input>
 				<label>{label}</label>
 			</div>
 		)
@@ -133,8 +131,8 @@ const validate = values => {
 		errors.question = "Enter a question"
 	}
 
-	if (!values.types) {
-		errors.types = "Choose a type"
+	if (!values.type) {
+		errors.type = "Choose a type"
 	}
 
 	if (values.type !== "rating") {

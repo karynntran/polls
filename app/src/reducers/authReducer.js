@@ -2,6 +2,7 @@ import {
 	LOG_IN,
 	LOG_OUT,
 	IS_LOGGEDIN
+
 } from '../actions/types';
 
 const INITIAL_STATE = {

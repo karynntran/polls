@@ -5,18 +5,15 @@ import { Field, reduxForm } from 'redux-form';
 // import localStorage from '../../localStorage';
 
 
-import { logIn, logOut, isLoggedIn } from '../../actions';
+import { logIn, logOut, isLoggedIn } from '../../actions/authActions';
 
-
-//create a form with login and logout
-//create a button
-//when submitted, check the userDB to see if a user matches password
-//error handling
 
 class TestAuthForm extends React.Component {
-	componentDidMount() {
-		this.props.isLoggedIn();
-	}
+	// componentDidMount() {
+	// 	this.props.isLoggedIn();
+	// }
+
+
 
 	handleLogOut = () => {
 		localStorage.setItem('user', null)

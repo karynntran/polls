@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchCard, deleteCard } from '../../actions';
+import { fetchCard, deleteCard } from '../../actions/cardActions';
 import history from '../../history';
 
 class CardDelete extends React.Component {
@@ -22,7 +22,7 @@ class CardDelete extends React.Component {
 				<h1>{`Delete "${this.props.card.question}"?`}</h1>
 				<div>
 					<button onClick={() => this.onDeleteClick()}>Delete</button>
-					<button>Cancel</button>
+					<button onClick={() => history.push("/")}>Cancel</button>
 				</div>
 			</div>
 		)

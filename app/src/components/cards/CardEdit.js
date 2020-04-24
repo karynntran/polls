@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { fetchCard, editCard } from '../../actions';
+import { fetchCard, editCard } from '../../actions/cardActions';
 import CardForm from './CardForm';
 
 class CardEdit extends React.Component {

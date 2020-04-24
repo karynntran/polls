@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { fetchCards } from '../../actions';
+import { fetchCards } from '../../actions/cardActions';
 
 import CardListPreview from './CardListPreview';
+// import { isCurrentUser } from '../../_helpers/userHelpers';
 
 
 class CardList extends React.Component {
@@ -12,9 +13,6 @@ class CardList extends React.Component {
 		this.props.fetchCards();
 	}
 
-	// componentDidUpdate() {
-	// 	this.props.fetchCards();
-	// }
 
 	renderUserCards = () => {
 		if (!this.props.cards.length) {
@@ -80,6 +78,9 @@ class CardList extends React.Component {
 				<ul>
 					<li key="user123">Username: user123, Password: password123</li>
 					<li key="user456">Username: user456, Password: password456</li>
+					<li key="userABC">Username: userABC, Password: passwordABC</li>
+					<li key="userDEF">Username: userDEF, Password: passwordDEF</li>
+
 				</ul>
 			</div>
 		)

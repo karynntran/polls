@@ -5,16 +5,16 @@ import '../style/styles.scss';
 
 
 class CardListPreview extends React.Component {
-	renderAnswers = (answers) => {
-		if (answers.length) {
-			return answers.map((answer, idx) => {
-				return <li key={idx}>{answer.answer}</li>
-			})
+	// renderAnswers = (answers) => {
+	// 	if (answers.length) {
+	// 		return answers.map((answer, idx) => {
+	// 			return <li key={idx}>{answer.answer}</li>
+	// 		})
 
-		} else {
-			return (<div>Rating</div>)
-		}
-	}
+	// 	} else {
+	// 		return (<div>Rating</div>)
+	// 	}
+	// }
 
 	renderOptions(id, userId) {
 		if (this.props.currentUser) {
@@ -41,7 +41,7 @@ class CardListPreview extends React.Component {
 	}
 
 	render() {
-		let { question, answers, type, _id, userId } = this.props.card;
+		let { question, type, _id, userId } = this.props.card;
 		return (
 			<div className="ui card">
 				<Link to={`cards/${_id}`}>
@@ -49,9 +49,6 @@ class CardListPreview extends React.Component {
 						<h6>{`Type: ${type}`}</h6>
 						<h2 className="header">{question}</h2>
 						
-					</div>
-					<div className="content">
-						{ this.renderAnswers(answers)}
 					</div>
 				</Link>
 				{this.renderOptions(_id, userId)}

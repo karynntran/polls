@@ -8,6 +8,8 @@ export const EDIT_CARD = 'EDIT_CARD';
 
 export const DELETE_CARD = 'DELETE_CARD';
 
+export const SUBMIT_ANSWER = 'SUBMIT_ANSWER';
+
 export const GET_USERS = 'GET_USERS';
 
 export const LOG_IN = 'LOG_IN';

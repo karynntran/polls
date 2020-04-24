@@ -5,7 +5,8 @@ import {
 	FETCH_CARDS,
 	CREATE_CARD,
 	EDIT_CARD,
-	DELETE_CARD
+	DELETE_CARD,
+	SUBMIT_ANSWER
 } from '../actions/types';
 
 export default (state = {}, action) => {
@@ -20,6 +21,8 @@ export default (state = {}, action) => {
 			return { ...state, ...action.payload }
 		case DELETE_CARD:
 			return _.omit(state, action.payload)
+		case SUBMIT_ANSWER:
+			return { ...state, [action.payload._id]: action.payload }
 		default:
 			return state;
 	}
